@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Home, Posts } from "./components";
+import { Home, Posts, AccountForm } from "./components";
 import { Route, Switch, Link } from "react-router-dom";
 import { fetchPosts } from "./api/api";
 import "./App.css";
@@ -27,6 +27,9 @@ const App = () => {
         <Link className="item" to="/posts">
           Posts
         </Link>
+        <Link className="item" to="/account">
+          Log In
+        </Link>
       </nav>
       <Switch>
         <Route exact path="/">
@@ -34,6 +37,9 @@ const App = () => {
         </Route>
         <Route className="item" path="/posts">
           <Posts posts={posts} />
+        </Route>
+        <Route>
+          <AccountForm />
         </Route>
       </Switch>
     </div>
