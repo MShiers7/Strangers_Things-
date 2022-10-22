@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import { fetchUsers } from "../api/api";
+import { useParams, useHistory } from "react-router-dom";
 
-const AccountForm = () => {
+const AccountForm = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { action } = useParams();
+  const history = useHistory();
+  console.log(action);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       const { data } = await fetchUsers(username, password);
+      setToken(data.token);
+      history.push("/");
     } catch (error) {
       console.error(error);
     }
   };
 
+  const title = action === "login" ? "Log In" : "Sign Up";
+
   return (
     <form className="ui form" onSubmit={onSubmitHandler}>
-      <h1>Sign Up</h1>
+      <h1>{title}</h1>
       <div className="field">
         <label>Username</label>
         <input
@@ -39,7 +47,7 @@ const AccountForm = () => {
         />
       </div>
       <button className="ui button" type="sbmit">
-        Sign Up
+        {title}
       </button>
     </form>
   );
