@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Home, Posts, AccountForm } from "./components";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
-import { fetchPosts } from "./api/api";
+import { fetchPosts, fetchUserToken } from "./api/api";
 import "./App.css";
 
 const App = () => {
@@ -9,6 +9,7 @@ const App = () => {
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || ""
   );
+  const [user, setUser] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
@@ -24,11 +25,23 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    if (token) {
+      const getUser = async () => {
+        const { username } = await fetchUserToken(token);
+        console.log("username", username);
+        setUser(username);
+      };
+      getUser();
+    }
+  }, [token]);
+
+  useEffect(() => {
     window.localStorage.setItem("token", token);
   }, [token]);
 
   const logOut = () => {
-    setToken("");
+    setToken(null);
+    setUser(null);
     history.push("/");
   };
 
@@ -60,7 +73,7 @@ const App = () => {
       </nav>
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home user={user} />
         </Route>
         <Route className="item" path="/posts">
           <Posts posts={posts} />

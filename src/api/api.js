@@ -34,3 +34,20 @@ export const fetchUsers = async (username, password) => {
     console.error("There was an error fetching the user", error);
   }
 };
+
+export const fetchUserToken = async (token) => {
+  try {
+    const response = await fetch(`${BASEURL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("USER RESPONSE BODY", response);
+    const { data } = await response.json();
+    console.log("USER DATA", data);
+    return data;
+  } catch {
+    console.log(error);
+  }
+};
