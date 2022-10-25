@@ -7,16 +7,15 @@ const AccountForm = ({ setToken }) => {
   const [password, setPassword] = useState("");
   const { action } = useParams();
   const history = useHistory();
-  console.log(action);
+  console.log("action", action);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    try {
-      const { data } = await fetchUsers(username, password);
-      setToken(data.token);
+    const { error, token, message } = await fetchUsers(username, password);
+    console.error(error);
+    setToken(token);
+    if (token) {
       history.push("/");
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -46,7 +45,7 @@ const AccountForm = ({ setToken }) => {
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
-      <button className="ui button" type="sbmit">
+      <button className="ui button" type="submit">
         {title}
       </button>
     </form>

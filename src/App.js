@@ -7,24 +7,26 @@ import "./App.css";
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(
-    window.localStorage.getItem("token") || ""
+    window.localStorage.getItem("token") || null
   );
   const [user, setUser] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
     const getPosts = async () => {
-      try {
-        const result = await fetchPosts();
-        setPosts(result);
-      } catch (error) {
+      const { error, posts } = await fetchPosts(token);
+
+      if (error) {
         console.error(error);
       }
+      setPosts(posts);
     };
+
     getPosts();
   }, []);
 
   useEffect(() => {
+    console.log("HERE");
     if (token) {
       const getUser = async () => {
         const { username } = await fetchUserToken(token);
@@ -36,7 +38,11 @@ const App = () => {
   }, [token]);
 
   useEffect(() => {
-    window.localStorage.setItem("token", token);
+    if (token) {
+      window.localStorage.setItem("token", token);
+    } else {
+      window.localStorage.removeItem("token");
+    }
   }, [token]);
 
   const logOut = () => {
@@ -73,7 +79,7 @@ const App = () => {
       </nav>
       <Switch>
         <Route exact path="/">
-          <Home user={user} />
+          <Home username={user} />
         </Route>
         <Route className="item" path="/posts">
           <Posts posts={posts} />

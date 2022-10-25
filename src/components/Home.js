@@ -1,11 +1,10 @@
 import React from "react";
 
-const Home = ({ user }) => {
-  console.log(user);
+const Home = ({ username }) => {
   return (
     <>
       <h1>Stranger's Things</h1>
-      {user && <h3>You are logged in as: {user}</h3>}
+      {username && <h3>You are logged in as: {username}</h3>}
     </>
   );
 };
