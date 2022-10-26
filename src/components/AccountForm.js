@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchUsers } from "../api/api";
+import { fetchUsers, userLogin } from "../api/api";
 import { useParams, useHistory } from "react-router-dom";
 
 const AccountForm = ({ setToken }) => {
@@ -11,7 +11,8 @@ const AccountForm = ({ setToken }) => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const { error, token, message } = await fetchUsers(username, password);
+    const authentication = action === "log in" ? fetchUsers : userLogin;
+    const { error, token, message } = await authentication(username, password);
     console.error(error);
     setToken(token);
     if (token) {
