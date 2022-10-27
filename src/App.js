@@ -84,7 +84,9 @@ const App = () => {
         <Route className="item" path="/posts/create">
           <CreatePostForm token={token} setPosts={setPosts} />
         </Route>
-
+        <Route path="/posts">
+          <Posts posts={posts} token={token} setPosts={setPosts} />
+        </Route>
         <Route className="item" path="/posts">
           <Posts posts={posts} />
         </Route>
