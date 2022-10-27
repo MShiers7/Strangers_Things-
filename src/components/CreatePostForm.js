@@ -8,6 +8,7 @@ const CreatePostForm = ({ token, setPosts }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [location, setLocation] = useState("");
 
   return (
     <form
@@ -19,7 +20,8 @@ const CreatePostForm = ({ token, setPosts }) => {
           token,
           title,
           description,
-          price
+          price,
+          location
         );
 
         if (posts) {
@@ -27,6 +29,7 @@ const CreatePostForm = ({ token, setPosts }) => {
           setTitle("");
           setDescription("");
           setPrice("");
+          setLocation("");
           history.push("/posts");
         } else {
           setErrorMessage(error);
@@ -65,6 +68,17 @@ const CreatePostForm = ({ token, setPosts }) => {
           placeholder="Price"
           value={price}
           onChange={(event) => setPrice(event.target.value)}
+        ></input>
+      </div>
+
+      <div className="field">
+        <label htmlFor="location">Location</label>
+        <input
+          name="location"
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(event) => setLocation(event.target.value)}
         ></input>
       </div>
 

@@ -27,9 +27,7 @@ const PostsItem = ({ posts, setPosts, token }) => {
 
           <p>{posts.description}</p>
           <div className="center aligned header">{posts.price}</div>
-          <div className="center aligned header">
-            <Link to="">View Post</Link>
-          </div>
+          <div className="center aligned header"></div>
         </div>
         <div role="list" className="ui divided relaxed list">
           {posts.isAuthor ? (
