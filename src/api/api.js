@@ -215,27 +215,40 @@ export const deletePost = async (token, postId) => {
   }
 };
 
-// export const createPosts = async (token, title, description, price) => {
-//   try {
-//     const response = await fetch(`${BASEURL}/posts`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({
-//         post: {
-//           title,
-//           description,
-//           price,
-//         },
-//       }),
-//     });
-//     console.log("POST RESPONSE", response);
-//     const { data } = await response.json();
-//     console.log("POST DATA", data);
-//     return data;
-//   } catch (error) {
-//     console.log("ERROR CREATING POST FROM API", error);
-//   }
-// };
+export const addMessage = async (token, postId, message) => {
+  try {
+    const { success, error, data } = await callAPI(
+      `/posts/${postId}/messages`,
+      {
+        token: token,
+        method: "POST",
+        body: {
+          message: {
+            content: message,
+          },
+        },
+      }
+    );
+
+    if (success) {
+      return {
+        success: success,
+        error: null,
+        messages: data.messages,
+      };
+    } else {
+      return {
+        success: success,
+        error: error.message,
+        message: null,
+      };
+    }
+  } catch (error) {
+    console.error(`POST/posts/${postId}/messages failed:`, error);
+    return {
+      success: false,
+      error: "Failed to create message for post",
+      comment: null,
+    };
+  }
+};

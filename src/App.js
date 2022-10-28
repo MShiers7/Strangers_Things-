@@ -23,7 +23,7 @@ const App = () => {
     };
 
     getPosts();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     console.log("HERE");

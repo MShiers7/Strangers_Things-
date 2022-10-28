@@ -16,16 +16,16 @@ const CreatePostForm = ({ token, setPosts }) => {
       onSubmit={async (event) => {
         event.preventDefault();
 
-        const { error, posts } = await createPosts(
+        const { error, post } = await createPosts(
           token,
           title,
           description,
           price,
           location
         );
-
-        if (posts) {
-          setPosts((previousPost) => [...previousPost, posts]);
+        console.log("create form", post);
+        if (post) {
+          setPosts((previousPost) => [...previousPost, post]);
           setTitle("");
           setDescription("");
           setPrice("");
