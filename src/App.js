@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Home,
+  Profile,
   Posts,
   PostInfo,
   AccountForm,
@@ -66,6 +67,9 @@ const App = () => {
         <Link className="item" to="/posts">
           Posts
         </Link>
+        <Link className="item" to="/users/me">
+          Profile
+        </Link>
         <div className="right menu">
           {token ? (
             <button onClick={logOut} className="item">
@@ -86,6 +90,9 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <Home username={user} />
+        </Route>
+        <Route className="item" path="/users/me">
+          <Profile token={token} posts={posts} />
         </Route>
         <Route className="item" path="/posts/create">
           <CreatePostForm token={token} setPosts={setPosts} />
