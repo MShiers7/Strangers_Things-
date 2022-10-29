@@ -53,7 +53,7 @@ export const fetchPosts = async (token) => {
   }
 };
 
-export const fetchUsers = async (username, password) => {
+export const registerUser = async (username, password) => {
   try {
     const { success, error, data } = await callAPI("/users/register", {
       method: "POST",

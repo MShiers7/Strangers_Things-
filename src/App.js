@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Home, Posts, AccountForm, CreatePostForm } from "./components";
+import {
+  Home,
+  Posts,
+  PostInfo,
+  AccountForm,
+  CreatePostForm,
+} from "./components";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import { fetchPosts, fetchUserToken } from "./api/api";
 import "./App.css";
@@ -12,16 +18,16 @@ const App = () => {
   const [user, setUser] = useState(null);
   const history = useHistory();
 
+  const getPosts = async () => {
+    const { error, posts } = await fetchPosts(token);
+
+    if (error) {
+      console.error(error);
+    }
+    setPosts(posts);
+  };
+
   useEffect(() => {
-    const getPosts = async () => {
-      const { error, posts } = await fetchPosts(token);
-
-      if (error) {
-        console.error(error);
-      }
-      setPosts(posts);
-    };
-
     getPosts();
   }, [token]);
 
@@ -84,11 +90,14 @@ const App = () => {
         <Route className="item" path="/posts/create">
           <CreatePostForm token={token} setPosts={setPosts} />
         </Route>
+        <Route path="/posts/:postId">
+          <PostInfo token={token} posts={posts} getPosts={getPosts} />
+        </Route>
         <Route path="/posts">
           <Posts posts={posts} token={token} setPosts={setPosts} />
         </Route>
         <Route className="item" path="/posts">
-          <Posts posts={posts} />
+          <Posts posts={posts} token={token} setPosts={setPosts} />
         </Route>
         <Route className="item" path="/account/:action">
           <AccountForm setToken={setToken} />

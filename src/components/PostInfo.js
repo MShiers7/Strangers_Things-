@@ -13,6 +13,7 @@ const PostInfo = (props) => {
     const foundPost = onePost._id == postId;
     return foundPost;
   });
+  console.log("singlePost", singlePost);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +40,7 @@ const PostInfo = (props) => {
 
   return (
     <>
-      <PostsItem post={singlePost} />
+      <PostsItem posts={singlePost} />
       <form className="message-form" onSubmit={handleOnSubmit}>
         <input
           type="text"
