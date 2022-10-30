@@ -13,7 +13,6 @@ const PostInfo = (props) => {
     const foundPost = onePost._id == postId;
     return foundPost;
   });
-  console.log("singlePost", singlePost);
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();

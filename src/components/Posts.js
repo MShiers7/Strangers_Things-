@@ -5,7 +5,7 @@ import { deletePost } from "../api/api";
 import "./Posts.css";
 
 const Posts = ({ posts, setPosts, token }) => {
-  console.log("posts", posts);
+  
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(posts);

@@ -7,7 +7,7 @@ const AccountForm = ({ setToken }) => {
   const [password, setPassword] = useState("");
   const { action } = useParams();
   const history = useHistory();
-  console.log("action", action);
+  
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();

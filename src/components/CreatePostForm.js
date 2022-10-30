@@ -23,7 +23,7 @@ const CreatePostForm = ({ token, setPosts }) => {
           price,
           location
         );
-        console.log("create form", post);
+
         if (post) {
           setPosts((previousPost) => [...previousPost, post]);
           setTitle("");

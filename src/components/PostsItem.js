@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const PostsItem = ({ posts, headerElement, children }) => {
-  console.log(posts, "IN ITEMS");
-
   return (
     <div className="ui card">
       {posts.location}

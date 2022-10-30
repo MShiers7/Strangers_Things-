@@ -33,11 +33,10 @@ const App = () => {
   }, [token]);
 
   useEffect(() => {
-    console.log("HERE");
     if (token) {
       const getUser = async () => {
         const { username } = await fetchUserToken(token);
-        console.log("username", username);
+
         setUser(username);
       };
       getUser();
